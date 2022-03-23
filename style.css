@@ -28,7 +28,6 @@ body {
 
     box-shadow: 1px 0 10px 10px lightgrey;
     background-color: white;
-    
 }
 
 .content h1 {
@@ -54,7 +53,6 @@ body {
 .content input {
     font-size: large;
     font-family: 'Patrick Hand', cursive; 
-
 }
 
 .content button {
