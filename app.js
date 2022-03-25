@@ -1,14 +1,9 @@
-//Getting elements and buttons from HTML
+//Getting Elements and Buttons from HTML
 const literPerHundredKmElement = document.getElementById("liter-per-hundred-km");
 const distanceHolderElement = document.getElementById("distance-holder");
 const priceHolderElement = document.getElementById("price-holder");
 const convertBtn = document.getElementById("convert-button");
 const infoPanelElement = document.getElementById("info-panel");
-
-//Making variables for giving to user in the infopanel
-let oneKm;
-let totalLiters;
-let tripPrice;
 
 //Putting in user options from localstorage if they have been here before, otherwise it puts the value´s to 0
 if(localStorage.getItem("liter-per-hundred-Km") != null || localStorage.getItem("journey-distance") != null || localStorage.getItem("gas-price") != null) {
@@ -24,22 +19,42 @@ if(localStorage.getItem("liter-per-hundred-Km") != null || localStorage.getItem(
 convertBtn.addEventListener("click", () => {
     if (literPerHundredKmElement.value > 0) {
         //Setting user options from fuel conversion to localstorage
-        localStorage.setItem("liter-per-hundred-Km", literPerHundredKmElement.value)
-        localStorage.setItem("journey-distance", distanceHolderElement.value)
-        localStorage.setItem("gas-price", priceHolderElement.value)
+        localStorage.setItem("liter-per-hundred-Km", literPerHundredKmElement.value);
+        localStorage.setItem("journey-distance", distanceHolderElement.value);
+        localStorage.setItem("gas-price", priceHolderElement.value);
 
-        //Doing the calcualtion for the fuel conversion
-        oneKm = (literPerHundredKmElement.value / 100);
-        totalLiters = (oneKm * distanceHolderElement.value);
-        tripPrice = (totalLiters * priceHolderElement.value);
+        //Sending user input to the fuel calculator
+        let fuelConvertion = fuelCalculator(literPerHundredKmElement.value, distanceHolderElement.value, priceHolderElement.value);
 
         //Displaying calculation and changing the point notation
-        infoPanelElement.textContent = "You´re " + `car takes ${oneKm.toFixed(3)}l per km and it will use ${totalLiters.toFixed(2)}liters the hole way, this means` + " you´re " + `car trip costs ${tripPrice.toFixed(2)}€`
-    //If user hasent put in anything
+        infoPanelElement.textContent = "You´re " + `car takes ${fuelConvertion.forOnekm}l per km and it will use ${fuelConvertion.litersInTrip}liters the hole way, this means` + " you´re " + `car trip costs ${fuelConvertion.theTripPrice}€`;
+        //If user hasent put in anything
     } else if (literPerHundredKmElement.value == 0) {
-        infoPanelElement.textContent = "U have an electric or something?"
+        infoPanelElement.textContent = "U have an electric or something?";
     //If user got the numbers to be minus
     } else if (parseInt(literPerHundredKmElement.value) < 0) {
-        infoPanelElement.textContent = "Would it not be good with a car that gives u money insted"
+        infoPanelElement.textContent = "Would it not be good with a car that gives u money insted";
     }
 }); 
+
+//Function for converting the fuel
+function fuelCalculator(literPer100Km, distance, price) {
+    //Creating object that will be sent later
+    let fuelConvertion = {}
+
+    //Doing the calcualtion for the fuel conversion
+    oneKm = (literPer100Km / 100);
+    totalLiters = (oneKm * distance);
+    tripPrice = (totalLiters * price);
+
+    //Putting the calculated values into the object to be sent back
+    fuelConvertion = {
+        forOnekm: oneKm.toFixed(3),
+        litersInTrip: totalLiters.toFixed(2),
+        theTripPrice: tripPrice.toFixed(2),
+    }
+
+    //Sending object with answers to convertions
+    return fuelConvertion;
+}
+
