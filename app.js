@@ -28,13 +28,13 @@ convertBtn.addEventListener("click", () => {
         localStorage.setItem("journey-distance", distanceHolderElement.value)
         localStorage.setItem("gas-price", priceHolderElement.value)
 
-        //Doing the calcualtion for the fuel conversion, also puting the point notation to 2
-        oneKm = (literPerHundredKmElement.value / 100).toFixed(2);
-        totalLiters = (oneKm * distanceHolderElement.value).toFixed(2);
-        tripPrice = (totalLiters * priceHolderElement.value).toFixed(2);
+        //Doing the calcualtion for the fuel conversion
+        oneKm = (literPerHundredKmElement.value / 100);
+        totalLiters = (oneKm * distanceHolderElement.value);
+        tripPrice = (totalLiters * priceHolderElement.value);
 
-        //Displaying calculation
-        infoPanelElement.textContent = "You´re " + `car takes ${oneKm}l per km and it will use ${totalLiters}liters the hole way, this means` + " you´re " + `car trip costs ${tripPrice}€`
+        //Displaying calculation and changing the point notation
+        infoPanelElement.textContent = "You´re " + `car takes ${oneKm.toFixed(3)}l per km and it will use ${totalLiters.toFixed(2)}liters the hole way, this means` + " you´re " + `car trip costs ${tripPrice.toFixed(2)}€`
     //If user hasent put in anything
     } else if (literPerHundredKmElement.value == 0) {
         infoPanelElement.textContent = "U have an electric or something?"
