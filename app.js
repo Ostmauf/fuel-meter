@@ -27,7 +27,7 @@ convertBtn.addEventListener("click", () => {
         let fuelConvertion = fuelCalculator(literPerHundredKmElement.value, distanceHolderElement.value, priceHolderElement.value);
 
         //Displaying calculation and changing the point notation
-        infoPanelElement.textContent = "You´re " + `car takes ${fuelConvertion.forOnekm}l per km and it will use ${fuelConvertion.litersInTrip}liters the hole way, this means` + " you´re " + `car trip costs ${fuelConvertion.theTripPrice}€`;
+        infoPanelElement.textContent = "You´re " + `car takes ${fuelConvertion.forOnekm}l per km and it will use ${fuelConvertion.litersInTrip}liters the hole way, this means` + " your " + `car trip costs ${fuelConvertion.theTripPrice}€`;
         //If user hasent put in anything
     } else if (literPerHundredKmElement.value == 0) {
         infoPanelElement.textContent = "U have an electric or something?";
